@@ -4,15 +4,17 @@ body
 {
     margin-top: 20px;
     font-family: "Merriweather";
+    background: #efefef;
 }
 
 /* Logo */
 
-.logo, .nav, h1, h2, h3, h4, h5, h6
+.logo, .nav, h1, h2, h3, h4, h5, h6, .btn
 {
     font-family: "Yanone Kaffeesatz",Helvetica,sans-serif;
     font-weight: 400;
 }
+
 
 /* Navigatioin */
 
@@ -26,4 +28,21 @@ body
 .main-attraction
 {
     margin-bottom: 12px;
+}
+
+article.post
+{
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+article.post .date
+{
+    font-size: 10px;
+}
+
+article.post .row
+{
+    margin-top: 12px;
 }
