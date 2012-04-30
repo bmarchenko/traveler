@@ -15,6 +15,11 @@ body
     font-weight: 400;
 }
 
+.tag-line
+{
+    color: #666666;
+}
+
 
 /* Navigatioin */
 
@@ -23,6 +28,11 @@ body
     font-size: 16px;
 }
 
+.nav .nav-header
+{
+    font-size: 16px;
+    font-weight: 200;
+}
 /* Home Page */
 
 .main-attraction
