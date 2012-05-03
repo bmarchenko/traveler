@@ -32,11 +32,7 @@ img
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.6);
-    float: left;
-    font-size: 16px;
-    font-weight: 200;
-    line-height: 16px;
-    margin: 10px 0 15px;
+    margin: 10px 12px 15px 0;
     padding: 9px;
 }
 
