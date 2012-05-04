@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block extra_foot %}
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyB1BWCeQ3FuvjS__r4YHUqMPdSKS9cCi9Y&sensor=false"></script>
+<script>
+  function initialize() {
+    var blackStyles = [
+{
+featureType: 'all',
+rules: [
+{visibility: 'off'}
+]
+},
+{
+featureType: 'water',
+rules: [
+{visibility: 'on'},
+{lightness: -100 }
+]
+}
+];
+    var blackMapType = new google.maps.StyledMapType(blackStyles,
+    {name: "Black Map"});
+
+  
+  
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      //zoom: 2,
+      //center: latlng,
+      
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       styles: blackStyles,    
+    };
+    var map = new google.maps.Map(document.getElementById("map"),
+        myOptions);
+
+      var bounds = new google.maps.LatLngBounds();
+
+
+      
+      var latlng{{ country.id }} = new google.maps.LatLng({{ country.latitude }}, {{ country.longitude }});
+      var marker{{ country.id }} = new google.maps.Marker({
+         position: latlng{{ country.id }},
+         map: map,
+         title: ""
+      });
+
+      var content{{ country.id }} = '<div id="content">'+
+          
+          
+          
+          
+          '</div>';
+      var infowindow{{ country.id }} = new google.maps.InfoWindow({
+          content: content{{ country.id }}
+      });
+      google.maps.event.addListener(marker{{ country.id }}, 'click', function() {
+         infowindow{{ country.id }}.open(map, marker{{ country.id }});
+      });
+    /*
+        var geocoder = new google.maps.Geocoder();
+        
+        geocoder.getLatLng("{{ country.name }}", function (locations) { 
+        
+            var north = locations.Placemark[0].ExtendedData.LatLonBox.north;
+            var south = locations.Placemark[0].ExtendedData.LatLonBox.south;
+            var east  = locations.Placemark[0].ExtendedData.LatLonBox.east;
+            var west  = locations.Placemark[0].ExtendedData.LatLonBox.west;
+        
+        
+        var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(south, west), 
+                                                  new google.maps.LatLng(north, east));
+        map.fitBounds(bounds);
+    
+        });
+      */  
+        var geocoder = new google.maps.Geocoder();
+           geocoder.geocode( { 'address': "{{ country.name }}" }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                map.fitBounds(results[0].geometry.viewport);
+              }
+            });
+        
+        
+        
+        
+
+  }
+</script>
+{% endblock extra_foot %}
+{% block extra_body %}onLoad="initialize()"{% endblock %}
+{% block main_content %}
+<div class="main-attraction">
+            <!--<img src="http://static.derek.stegelman.com/media/cache/68/ef/68ef63255ac1846da1185a083e16f4c6.jpg">-->
+            <img src="map.png" class="round-big">
+        </div>
+        <article class="trip">
+
+                    
+                    <h1>{{ country.name }}</h1>
+                    <h3>Nothin</h3>
+                    
+                    <div class="pull-right">
+                        <div class="polaroid">
+                            <div id="map">
+                            
+                            </div>
+                            
+                        </div>
+                        <div class="side-note">
+                        <h3>Trips To {{ country.name }}</h3>    
+                        <ul>
+                            <li><a href="#">Blog Post</a></li>
+                            <li><a href="#">Blog Post</a></li>
+                            <li><a href="#">Blog Post</a></li>
+                            <li><a href="#">Blog Post</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                    
+                    {{ country.content }}
+            </article>
+{% endblock main_content %}

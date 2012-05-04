@@ -1,0 +1,81 @@
+/* Derek Stegelman */
+
+body
+{
+    margin-top: 20px;
+    font-family: "Merriweather";
+    background: #efefef;
+}
+
+/* Logo */
+
+.logo, .nav, h1, h2, h3, h4, h5, h6, .btn
+{
+    font-family: "Yanone Kaffeesatz",Helvetica,sans-serif;
+    font-weight: 400;
+}
+
+.tag-line
+{
+    color: #666666;
+}
+
+/* Core */
+
+img.round-big
+{
+    border-radius: 5px;
+}
+
+.polaroid
+{
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
+    margin: 10px 12px 15px 0;
+    padding: 9px;
+}
+
+/* Navigation */
+
+.nav
+{
+    font-size: 16px;
+}
+
+.nav .nav-header
+{
+    font-size: 16px;
+    font-weight: 200;
+}
+/* Home Page */
+
+.main-attraction
+{
+    margin-bottom: 12px;
+}
+
+article.post
+{
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+article.post .date
+{
+    font-size: 10px;
+}
+
+article.post .row
+{
+    margin-top: 12px;
+}
+
+/* Map */
+
+div#map
+{
+    width: 450px;
+    height: 300px;
+}
