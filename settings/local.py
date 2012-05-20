@@ -54,6 +54,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'traveler',
+    'hadrian.contrib.locations',
+    'gallery',
+    'sorl.thumbnail',
 
 
 )

@@ -48,12 +48,22 @@
             <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+                {% if international_trips %}
                 <li class="nav-header">International</li>
-                <li><a href="#">Europe 2011</a></li>
-                <li><a href="#">Europe 2009</a></li>
+                {% endif %}
+                {% for trip in international_trips %}
+                <li><a href="{{ trip.get_absolute_url }}">{{ trip }}</a></li>
+                {% endfor %}
+                
+                
+                {% if doemestic_trips %}
                 <li class="nav-header">Domestic</li>
-                <li><a href="#">South Dakota 2010</a></li>
-                <li><a href="#">New York 2010</a></li>
+                {% endif %}
+                
+                {% for trip in doemestic_trips %}
+                <li><a href="{{ trip.get_absolute_url }}">{{ trip }}</a></li>
+                {% endfor %}
+                
                 
             </ul>
             </li>

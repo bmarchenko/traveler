@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import simplejson
 import urllib
 from hadrian.utils.slugs import unique_slugify
+from hadrian.contrib.locations.models import Location
+from gallery.models import Image
+from traveler.choices import CONTINENT_CHOICES
 
 class Country(models.Model):
     name = models.CharField(max_length=120, null=True, blank=True)
@@ -9,6 +12,7 @@ class Country(models.Model):
     content = models.TextField(null=True, blank=True)
     latitude = models.CharField(editable=False, null=True, blank=True, max_length=120)
     longitude = models.CharField(editable=False, null=True, blank=True, max_length=120)
+    continent = models.CharField(max_length=50, choices=CONTINENT_CHOICES, blank=True, null=True)
     
     def __unicode__(self):
         return self.name
@@ -33,10 +37,23 @@ class Country(models.Model):
 class Trip(models.Model):
     title = models.CharField(max_length=120, blank=True, null=True)
     slug = models.SlugField(max_length=120, editable=False)
+    tag_line = models.CharField(max_length=200, blank=True, null=True)
+    synopsis = models.TextField(blank=True, null=True)
     countries = models.ManyToManyField(Country, blank=True, null=True)
+    locations = models.ManyToManyField(Location, blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+    images = models.ManyToManyField(Image, blank=True, null=True)
+    date_left = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    date_returned = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    international = models.BooleanField(default=False)
+    
     
     def __unicode__(self):
         return self.title
+        
+    @models.permalink
+    def get_absolute_url(self):
+        return ('trip_detail', (), {'slug': self.slug})
     
     def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
