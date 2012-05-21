@@ -1,0 +1,53 @@
+<ul class="nav nav-pills pull-right">
+    <li {% if nav == "home" %}class="active"{% endif %}>
+        <a href="{% url home %}">Home</a>
+    </li>
+    <li{% if nav == "blog" %} class="active"{% endif %}><a href="{% url post_list_view %}">Blog</a></li>
+    <li class="{% if nav == "trip" %}active {% endif %}dropdown">
+    <a class="dropdown-toggle"
+    data-toggle="dropdown"
+    href="#">
+    Trips
+    <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="{% url trip_list_view %}">All Trips</a></li>
+        {% if international_trips %}
+        <li class="nav-header">International</li>
+        {% endif %}
+        {% for trip in international_trips %}
+        <li><a href="{{ trip.get_absolute_url }}">{{ trip }}</a></li>
+        {% endfor %}
+        
+        {% if doemestic_trips %}
+        <li class="nav-header">Domestic</li>
+        {% endif %}
+        
+        {% for trip in doemestic_trips %}
+        <li><a href="{{ trip.get_absolute_url }}">{{ trip }}</a></li>
+        {% endfor %}
+        
+        
+    </ul>
+    </li>
+    <li class="{% if nav == "country" %}active {% endif %}dropdown">
+    <a class="dropdown-toggle"
+    data-toggle="dropdown"
+    href="#">
+    Countries
+    <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="nav-header">North America</li>
+        {% for country in north_america_countries %}
+        <li><a href="{{ country.get_absolute_url }}">{{ country }}</a></li>
+        {% endfor %}
+        <li class="nav-header">Europe</li>
+        {% for country in europe_countries %}
+        <li><a href="{{ country.get_absolute_url }}">{{ country }}</a></li>
+        {% endfor %}
+        
+    </ul>
+    </li>
+    
+</ul>

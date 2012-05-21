@@ -15,6 +15,16 @@ body
     font-weight: 400;
 }
 
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
+{
+    color: #333333;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
 .tag-line
 {
     color: #666666;
@@ -22,7 +32,7 @@ body
 
 /* Core */
 
-img.round-big
+.round-big
 {
     border-radius: 5px;
 }
@@ -32,7 +42,7 @@ img.round-big
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.6);
-    margin: 10px 12px 15px 0;
+    margin: 10px 12px 15px 12px;
     padding: 9px;
 }
 

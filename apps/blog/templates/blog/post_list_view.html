@@ -1,0 +1,111 @@
+{% extends "blog/blog_base.html" %}
+
+{% block main_content %}
+<div class="row">
+<div class="span8">
+{% for post in posts %}
+<article class="post">
+<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+<span class="date">{{ post.date_created }}</span>
+
+<div class="row">
+<div class="span3">
+    <div class="thumbnail">
+    {% load thumbnail %}
+    {% thumbnail post.images.all.0.image "280x160" crop="center" as im %}
+    <img src="{{ im.url }}">
+    {% endthumbnail %}
+    </div>
+</div>
+<div class="span5">
+<p>
+{{ post.synopsis|truncatewords_html:70 }}
+</p>
+<a href="{{ post.get_absolute_url }}" class="btn pull-right">Read More</a>
+</div>
+
+</div>
+</article>
+{% endfor %}
+</div>
+<div class="span4">
+    
+    <div class="well">
+        <h3>About The Travelers</h3>
+        <div class="row">
+            <div class="span2">
+                <div class="thumbnail">
+                <img src="http://media.stegelman.com/fotochest/media/cache/c5/c7/c5c7c30bdb77ff583ddfafdd192f26b0.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <h3>Recent Trips</h3>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if is_paginated %}
+<div class="pagination">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+        <li class="active">
+            <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+        </li>
+        
+        
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -34,6 +34,10 @@ class Country(models.Model):
         self.longitude = geos['lng']
         super(Country, self).save(*args, **kwargs)
         
+    @models.permalink
+    def get_absolute_url(self):
+        return ('country_detail', (), {'slug': self.slug})
+        
 class Trip(models.Model):
     title = models.CharField(max_length=120, blank=True, null=True)
     slug = models.SlugField(max_length=120, editable=False)

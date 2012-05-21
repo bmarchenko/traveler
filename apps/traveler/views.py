@@ -18,3 +18,5 @@ class TripListView(ListView):
     context_object_name = "trips"
     template_name = "traveler/trip_list_view.html"
     queryset = Trip.objects.all()
+    paginate_by = 6
+    

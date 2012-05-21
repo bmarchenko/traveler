@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "traveler/country_base.html" %}
 {% block extra_foot %}
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyB1BWCeQ3FuvjS__r4YHUqMPdSKS9cCi9Y&sensor=false"></script>
 <script>
-  function initialize() {
+  function initialize_small() {
     var blackStyles = [
 {
 featureType: 'all',
@@ -89,12 +89,9 @@ rules: [
   }
 </script>
 {% endblock extra_foot %}
-{% block extra_body %}onLoad="initialize()"{% endblock %}
+{% block extra_body %}onLoad="initialize(); initialize_small();"{% endblock %}
 {% block main_content %}
-<div class="main-attraction">
-            <!--<img src="http://static.derek.stegelman.com/media/cache/68/ef/68ef63255ac1846da1185a083e16f4c6.jpg">-->
-            <img src="map.png" class="round-big">
-        </div>
+
         <article class="trip">
 
                     
