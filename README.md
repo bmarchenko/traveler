@@ -15,11 +15,11 @@ Get Running
 
 I would use a virtual environment to setup the dependencies.  Then....
 
-'''
+```
 pip install -r conf/requirements.txt
 python manage.py syncdb --settings=settings.local
 python manage.py migrate --settings=settings.local
 python manage.py runserver --settings=settings.local
-'''
+```
 
 Good luck.
