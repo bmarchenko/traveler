@@ -112,6 +112,12 @@
                          <li>{{ location }}</li>
                          {% endfor %}                         
                      </ul>
+                     <h3>Countries Visited</h3>
+                     <ul class="unstyled">
+                     {% for country in trip.countries.all %}
+                         <li><a href="{{ country.get_absolute_url }}">{{ country.name }}</a></li>
+                     {% endfor %}
+                     </ul>
                  </div>
                  <div class="span9">
                      <div id="small_map" style="height: 340px;"></div>

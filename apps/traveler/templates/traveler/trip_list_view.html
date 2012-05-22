@@ -7,16 +7,16 @@
 {% for trip in trips %}
 <article class="post">
 <h1><a href="{{ trip.get_absolute_url }}">{{ trip.title }}</a></h1>
-<span class="date">January 23, 2010</span>
+<span class="date">{{ trip.date_left }} - {{ trip.date_returned }}</span>
 
 <div class="row">
 <div class="span3">
-    <div class="thumbnail">
+    <a class="thumbnail" href="{{ trip.get_absolute_url }}">
     {% load thumbnail %}
     {% thumbnail trip.images.all.0.image "280x160" crop="center" as im %}
     <img src="{{ im.url }}">
     {% endthumbnail %}
-    </div>
+    </a>
 </div>
 <div class="span5">
 <p>
