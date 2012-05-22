@@ -38,6 +38,7 @@
     <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
+        <li><a href="{% url country_list_view %}">All Countries</a></li>
         <li class="nav-header">North America</li>
         {% for country in north_america_countries %}
         <li><a href="{{ country.get_absolute_url }}">{{ country }}</a></li>

@@ -57,23 +57,7 @@ rules: [
       google.maps.event.addListener(marker{{ country.id }}, 'click', function() {
          infowindow{{ country.id }}.open(map, marker{{ country.id }});
       });
-    /*
-        var geocoder = new google.maps.Geocoder();
-        
-        geocoder.getLatLng("{{ country.name }}", function (locations) { 
-        
-            var north = locations.Placemark[0].ExtendedData.LatLonBox.north;
-            var south = locations.Placemark[0].ExtendedData.LatLonBox.south;
-            var east  = locations.Placemark[0].ExtendedData.LatLonBox.east;
-            var west  = locations.Placemark[0].ExtendedData.LatLonBox.west;
-        
-        
-        var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(south, west), 
-                                                  new google.maps.LatLng(north, east));
-        map.fitBounds(bounds);
-    
-        });
-      */  
+ 
         var geocoder = new google.maps.Geocoder();
            geocoder.geocode( { 'address': "{{ country.name }}" }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -81,10 +65,6 @@ rules: [
                 map.fitBounds(results[0].geometry.viewport);
               }
             });
-        
-        
-        
-        
 
   }
 </script>
@@ -96,7 +76,7 @@ rules: [
 
                     
                     <h1>{{ country.name }}</h1>
-                    <h3>Nothin</h3>
+                    <h3>{{ country.get_continent_display }}</h3>
                     
                     <div class="pull-right">
                         <div class="polaroid">
@@ -105,17 +85,19 @@ rules: [
                             </div>
                             
                         </div>
+                        {% if country.trip_set.all %}
                         <div class="side-note">
                         <h3>Trips To {{ country.name }}</h3>    
                         <ul>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
+                            {% for trip in country.trip_set.all %}
+                            <li><a href="{{ trip.get_absolute_url }}">{{ trip.title }}</a></li>
+                            {% endfor %}
                         </ul>
                         </div>
+                        {% endif %}
                     </div>
-                    
+                    {% autoescape off %}
                     {{ country.content }}
+                    {% endautoescape %}
             </article>
 {% endblock main_content %}

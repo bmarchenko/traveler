@@ -1,28 +1,96 @@
-{% extends "traveler/trip_base.html" %}
+{% extends "traveler/country_base.html" %}
+{% block extra_foot %}
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyB1BWCeQ3FuvjS__r4YHUqMPdSKS9cCi9Y&sensor=false"></script>
+{% for country in countries %}
+<script>
+  function initialize_{{ country.id }}() {
+    var blackStyles = [
+{
+featureType: 'all',
+rules: [
+{visibility: 'off'}
+]
+},
+{
+featureType: 'water',
+rules: [
+{visibility: 'on'},
+{lightness: -100 }
+]
+}
+];
+    var blackMapType = new google.maps.StyledMapType(blackStyles,
+    {name: "Black Map"});
 
+  
+  
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      //zoom: 2,
+      //center: latlng,
+      
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       styles: blackStyles,    
+    };
+    var map = new google.maps.Map(document.getElementById("map_{{ country.id }}"),
+        myOptions);
+
+      var bounds = new google.maps.LatLngBounds();
+
+      var latlng{{ country.id }} = new google.maps.LatLng({{ country.latitude }}, {{ country.longitude }});
+      var marker{{ country.id }} = new google.maps.Marker({
+         position: latlng{{ country.id }},
+         map: map,
+         title: ""
+      });
+
+      var content{{ country.id }} = '<div id="content">'+
+
+          '</div>';
+      var infowindow{{ country.id }} = new google.maps.InfoWindow({
+          content: content{{ country.id }}
+      });
+      google.maps.event.addListener(marker{{ country.id }}, 'click', function() {
+         infowindow{{ country.id }}.open(map, marker{{ country.id }});
+      });
+  
+        var geocoder = new google.maps.Geocoder();
+           geocoder.geocode( { 'address': "{{ country.name }}" }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                map.fitBounds(results[0].geometry.viewport);
+              }
+            });
+  }
+</script>
+{% endfor %}
+
+{% endblock extra_foot %}
+{% block extra_body %}onLoad="initialize();{% for country in countries %} initialize_{{ country.id }}();{% endfor %}"{% endblock %}
 {% block main_content %}
 
 <div class="row">
 <div class="span8">
-{% for trip in trips %}
+{% for country in countries %}
 <article class="post">
-<h1><a href="{{ trip.get_absolute_url }}">{{ trip.title }}</a></h1>
-<span class="date">{{ trip.date_left }} - {{ trip.date_returned }}</span>
+<h1><a href="{{ country.get_absolute_url }}">{{ country.name }}</a></h1>
+<span class="date">{{ country.get_continent_display }}</span>
 
 <div class="row">
 <div class="span3">
-    <a class="thumbnail" href="{{ trip.get_absolute_url }}">
-    {% load thumbnail %}
-    {% thumbnail trip.images.all.0.image "280x160" crop="center" as im %}
-    <img src="{{ im.url }}">
-    {% endthumbnail %}
-    </a>
+    <div class="thumbnail">
+    
+    <div id="map_{{ country.id }}" style="width:208px; height:160px"></div>
+    
+    </div>
 </div>
 <div class="span5">
+{% autoescape off %}
 <p>
-{{ trip.synopsis|truncatewords_html:70 }}
+{{ country.content|truncatewords_html:70 }}
 </p>
-<a href="{{ trip.get_absolute_url }}" class="btn pull-right">Read More</a>
+{% endautoescape %}
+<a href="{{ country.get_absolute_url }}" class="btn pull-right">Read More</a>
 </div>
 
 </div>

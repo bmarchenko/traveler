@@ -1,5 +1,6 @@
 from django.db import models
 from hadrian.utils.slugs import unique_slugify
+from traveler.models import Trip
 from gallery.models import Image
 from hadrian.contrib.locations.models import Location
 
@@ -8,6 +9,7 @@ class Post(models.Model):
     slug = models.SlugField(editable=False, blank=True, null=True)
     images = models.ManyToManyField(Image, blank=True, null=True)
     location = models.ForeignKey(Location, blank=True, null=True)
+    trip = models.ForeignKey(Trip, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     synopsis = models.TextField(blank=True, null=True)    
     date_created = models.DateField(auto_now_add=True, blank=True, null=True)
