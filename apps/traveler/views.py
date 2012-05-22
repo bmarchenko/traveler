@@ -8,6 +8,11 @@ class CountryDetailView(DetailView):
     template_name = "traveler/country_detail.html"
     queryset = Country.objects.all()
     
+class CountryListView(ListView):
+    context_object_name = "countries"
+    template_name = "traveler/country_list_view.html"
+    queryset = Country.objects.all()
+    paginate_by = 6
     
 class TripDetailView(DetailView):
     context_object_name = "trip"

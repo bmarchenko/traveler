@@ -1,0 +1,180 @@
+{% extends "traveler/country_base.html" %}
+{% block extra_foot %}
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyB1BWCeQ3FuvjS__r4YHUqMPdSKS9cCi9Y&sensor=false"></script>
+{% for country in countries %}
+<script>
+  function initialize_{{ country.id }}() {
+    var blackStyles = [
+{
+featureType: 'all',
+rules: [
+{visibility: 'off'}
+]
+},
+{
+featureType: 'water',
+rules: [
+{visibility: 'on'},
+{lightness: -100 }
+]
+}
+];
+    var blackMapType = new google.maps.StyledMapType(blackStyles,
+    {name: "Black Map"});
+
+  
+  
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      //zoom: 2,
+      //center: latlng,
+      
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       styles: blackStyles,    
+    };
+    var map = new google.maps.Map(document.getElementById("map_{{ country.id }}"),
+        myOptions);
+
+      var bounds = new google.maps.LatLngBounds();
+
+      var latlng{{ country.id }} = new google.maps.LatLng({{ country.latitude }}, {{ country.longitude }});
+      var marker{{ country.id }} = new google.maps.Marker({
+         position: latlng{{ country.id }},
+         map: map,
+         title: ""
+      });
+
+      var content{{ country.id }} = '<div id="content">'+
+
+          '</div>';
+      var infowindow{{ country.id }} = new google.maps.InfoWindow({
+          content: content{{ country.id }}
+      });
+      google.maps.event.addListener(marker{{ country.id }}, 'click', function() {
+         infowindow{{ country.id }}.open(map, marker{{ country.id }});
+      });
+  
+        var geocoder = new google.maps.Geocoder();
+           geocoder.geocode( { 'address': "{{ country.name }}" }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                map.fitBounds(results[0].geometry.viewport);
+              }
+            });
+  }
+</script>
+{% endfor %}
+
+{% endblock extra_foot %}
+{% block extra_body %}onLoad="initialize();{% for country in countries %} initialize_{{ country.id }}();{% endfor %}"{% endblock %}
+{% block main_content %}
+
+<div class="row">
+<div class="span8">
+{% for country in countries %}
+<article class="post">
+<h1><a href="{{ country.get_absolute_url }}">{{ country.name }}</a></h1>
+<span class="date">{{ country.get_continent_display }}</span>
+
+<div class="row">
+<div class="span3">
+    <div class="thumbnail">
+    
+    <div id="map_{{ country.id }}" style="width:208px; height:160px"></div>
+    
+    </div>
+</div>
+<div class="span5">
+{% autoescape off %}
+<p>
+{{ country.content|truncatewords_html:70 }}
+</p>
+{% endautoescape %}
+<a href="{{ country.get_absolute_url }}" class="btn pull-right">Read More</a>
+</div>
+
+</div>
+</article>
+{% endfor %}
+</div>
+<div class="span4">
+    
+    <div class="well">
+        <h3>About The Travelers</h3>
+        <div class="row">
+            <div class="span2">
+                <div class="thumbnail">
+                <img src="http://media.stegelman.com/fotochest/media/cache/c5/c7/c5c7c30bdb77ff583ddfafdd192f26b0.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <h3>Recent Trips</h3>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="span1">
+                <a href="#" class="thumbnail">
+                    <img src="http://media.stegelman.com/fotochest/media/cache/97/a4/97a4226d91f599ff03b103581613764e.jpg">
+                </a>
+            </div>
+            <div class="span2">
+                <h3><a href="#">Rome</a></h3>
+            </div>    
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if is_paginated %}
+<div class="pagination">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+        <li class="active">
+            <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+        </li>
+        
+        
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+
+{% endblock %}

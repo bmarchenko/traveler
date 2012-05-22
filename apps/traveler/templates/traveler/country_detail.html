@@ -108,10 +108,9 @@ rules: [
                         <div class="side-note">
                         <h3>Trips To {{ country.name }}</h3>    
                         <ul>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
-                            <li><a href="#">Blog Post</a></li>
+                            {% for trip in country.trip_set.all %}
+                            <li><a href="{{ trip.get_absolute_url }}">{{ trip.title }}</a></li>
+                            {% endfor %}
                         </ul>
                         </div>
                     </div>

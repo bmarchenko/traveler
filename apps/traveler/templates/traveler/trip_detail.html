@@ -40,37 +40,15 @@
                <div class="span2">
                      <h3>Associated Blog Posts</h3>
                      <ul class="unstyled">
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-oktoberfest/">Europe 2011 Oktoberfest!</a></li>
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-salzburg/">Europe 2011 Salzburg</a></li>
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-vienna/">Europe 2011 Vienna</a></li>
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-prague/">Europe 2011 Prague</a></li>
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-luzern/">Europe 2011 Luzern</a></li>
-                         
-                         <li><a href="/blog/post/2012/3/27/europe-2011-kansas-city-to-boston/">Europe 2011 - Kansas City to Boston</a></li>
-                         
+                         {% for post in trip.post_set.all %}
+                         <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                         {% endfor %}
                      </ul>
                      <h3>Locations Visited</h3>
                      <ul class="unstyled">
-                         
-                         <li><a href="/locations/5/">Kansas City, MO</a></li>
-                         
-                         <li><a href="/locations/8/">Vienna, Austria</a></li>
-                         
-                         <li><a href="/locations/9/">Zurich, Switzerland</a></li>
-                         
-                         <li><a href="/locations/10/">Prague, Czech Republic</a></li>
-                         
-                         <li><a href="/locations/11/">Munich, Germany</a></li>
-                         
-                         <li><a href="/locations/12/">Salzburg, Austria</a></li>
-                         
-                         <li><a href="/locations/14/">Luzern, Switzerland</a></li>
-                         
+                         {% for location in trip.locations.all %}
+                         <li>{{ location }}</li>
+                         {% endfor %}                         
                      </ul>
                  </div>
                  <div class="span8">
