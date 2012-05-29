@@ -22,7 +22,9 @@
 </div>
 <div class="span5">
 <p>
+{% autoescape off %}
 {{ post.synopsis|truncatewords_html:70 }}
+{% endautoescape %}
 </p>
 <a href="{{ post.get_absolute_url }}" class="btn pull-right">Read More</a>
 </div>

@@ -9,9 +9,14 @@
 
                     
                     <h1>{{ post.title }}</h1>
-                    <h3>THe best trip we have ever taken.</h3>
+                    {% if post.tag_line %}
+                    <h3>{{ post.tag_line }}</h3>
+                    {% endif %}
                     <div class="well">
-                        <p>{{ post.synopsis }}
+                        <p>
+                        {% autoescape off %}
+                        {{ post.synopsis }}
+                        {% endautoescape %}
                         </p>
                     </div>
                     
@@ -25,47 +30,48 @@
                     </div>
                     {% endfor %}
                     {% autoescape off %}
-                    {{ post.content }}
+                    {% load inlines_tags %}
+                    {{ post.content|render_inlines }}
+                    
                     {% endautoescape %}
                     
             </article>
+            {% load comments %}
+            {% if post.allow_comments %}
+            {% get_comment_list for post as comment_list %}
             <h3>Comments</h3>
             <div class="comments">
-                <div class="comment even well">
-                    <h5>Derek Stegelman</h5>
-                    <p>You are cool man!</p>
+                {% for comment in comment_list %}
+                <div class="comment odd well">
+                    <h5>{{ comment.user_name }}</h5>
+                    <p>{{ comment.comment }}</p>
                 </div>
-                <div class="comment odd">
-                    <h5>Derek Stegelman</h5>
-                    <p>You are cool man!</p>
-                </div>
-                <div class="comment even well">
-                    <h5>Derek Stegelman</h5>
-                    <p>You are cool man!</p>
-                </div>
+                {% endfor %}
             </div>
             
             
+            {% get_comment_form for post as form %}
+             <form class="well" action="{% comment_form_target %}" method="post">
+            			    {% csrf_token %}
+            			    {{ form.content_type }}
+            			    {{ form.object_pk }}
             
-            <form method="post" action="/comments/post/" class="well">
-                <div style="display:none"><input type="hidden" value="Sin7Kg2DuOk2LHSiqZBiPWlkLAfFZ1ZI" name="csrfmiddlewaretoken"></div>
-                <input type="hidden" id="id_content_type" value="photo_manager.photo" name="content_type">
-                <input type="hidden" id="id_object_pk" value="4003" name="object_pk">
-                
-                <input type="hidden" id="id_timestamp" value="1337530768" name="timestamp">
-                <input type="hidden" id="id_security_hash" value="c27b5657b429ef2490b603529e5eed6d9067ccdd" name="security_hash">
-                <label>Name:</label>
-                <input type="text" maxlength="50" name="name" id="id_name">
-                <label>Email:</label>
-                <input type="text" id="id_email" name="email">
-                <label>URL:</label>
-                <input type="text" id="id_url" name="url">
-                <label>Comment</label>
-                <textarea class="span11" name="comment"></textarea>
-                <input type="hidden" name="next" value="/foto/4003/ada-rae/5638933022771jpg/">
-                <div class="form-actions">
-                    <input type="submit" class="btn btn-primary" value="Post" name="submit">
-                    <input type="submit" value="Preview" class="btn" name="preview">			  
-                </div>
-                </form>
+            			    {{ form.timestamp }}
+            			    {{ form.security_hash }}
+            			    <label>Name:</label>
+            			    {{ form.name }}
+            			    <label>Email:</label>
+            			    {{ form.email }}
+            			    <label>URL:</label>
+            			    {{ form.url }}
+            			    <label>Comment</label>
+            			    <textarea name="comment" class="span11"></textarea>
+            			    <input type="hidden" value="{{ photo.get_absolute_url }}" name="next">
+            			    <div class="form-actions">
+            			        <input type="submit" name="submit" value="Post" class="btn btn-primary">
+            			        <input type="submit" name="preview" class="btn"	value="Preview">			  </form>
+            			    </div>
+            			</form>
+            			</div>
+            		{% endif %}
 {% endblock main_content %}

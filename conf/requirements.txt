@@ -5,3 +5,5 @@ PIL
 sorl-thumbnail==11.12
 factory_boy
 coverage
+django-taggit
+BeautifulSoup

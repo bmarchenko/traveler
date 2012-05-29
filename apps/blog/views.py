@@ -6,16 +6,16 @@ from django.views.generic import DetailView, ListView
 class PostDetailView(DetailView):
     context_object_name = "post"
     template_name = "blog/post_detail_view.html"
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(published=True)
     
 class PostListView(ListView):
     context_object_name = "posts"
     template_name = "blog/post_list_view.html"
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(published=True)
     paginate_by = 6
     
 class HomePageView(ListView):
     context_object_name = "posts"
     template_name = "blog/home.html"
-    queryset = Post.objects.all()
-    
+    queryset = Post.objects.filter(published=True)
+    paginate_by = 6

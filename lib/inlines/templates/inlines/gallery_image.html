@@ -1,0 +1,7 @@
+{% load thumbnail %}
+{% thumbnail object.image "450x300" as im %}
+<div class="polaroid {{ align }}">
+<img src="{{ im.url }}">
+<p class="caption">{{ object.caption }}</p>
+</div>
+{% endthumbnail %}

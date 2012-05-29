@@ -20,7 +20,9 @@
 </div>
 <div class="span5">
 <p>
+{% autoescape off %}
 {{ trip.synopsis|truncatewords_html:70 }}
+{% endautoescape %}
 </p>
 <a href="{{ trip.get_absolute_url }}" class="btn pull-right">Read More</a>
 </div>
