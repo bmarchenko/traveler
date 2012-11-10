@@ -3,7 +3,7 @@ from traveler.models import Country, Trip
 
 class TripAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('title', 'slug', 'international')
+    list_display = ('title', 'slug', 'international', 'published')
     search_fields = ['title', 'slug']
 
 class CountryAdmin(admin.ModelAdmin):

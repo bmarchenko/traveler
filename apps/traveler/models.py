@@ -1,10 +1,15 @@
+import urllib
+
 from django.db import models
 from django.utils import simplejson
-import urllib
+
 from hadrian.utils.slugs import unique_slugify
 from hadrian.contrib.locations.models import Location
+
 from gallery.models import Image
+
 from traveler.choices import CONTINENT_CHOICES
+from traveler.managers import TripManager
 
 class Country(models.Model):
     name = models.CharField(max_length=120, null=True, blank=True)
@@ -13,9 +18,13 @@ class Country(models.Model):
     latitude = models.CharField(editable=False, null=True, blank=True, max_length=120)
     longitude = models.CharField(editable=False, null=True, blank=True, max_length=120)
     continent = models.CharField(max_length=50, choices=CONTINENT_CHOICES, blank=True, null=True)
-    
+    zoom = models.IntegerField(blank=True, null=True, default=4)
+
     def __unicode__(self):
         return self.name
+
+    def get_map(self, width=450, height=300):
+        return "<img src='http://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zoom=%d&size=%sx%s&sensor=false'>" % (self.latitude, self.longitude, self.zoom, width, height)
         
     def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
@@ -50,8 +59,11 @@ class Trip(models.Model):
     date_left = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     date_returned = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     international = models.BooleanField(default=False)
+
+    published = models.BooleanField()
     
-    
+    objects = TripManager()
+
     def __unicode__(self):
         return self.title
         
