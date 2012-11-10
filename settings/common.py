@@ -2,6 +2,8 @@
 import conf.environment
 import os
 
+LOCAL = False
+
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 ADMINS = (
@@ -34,6 +36,11 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'wsgi.application'
+
+ROOT_URLCONF = 'urls'
 
 
 # Additional locations of static files
@@ -85,6 +92,30 @@ MIDDLEWARE_CLASSES = (
     
 )
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.comments',
+    'south',
+    'traveler',
+    'taggit',
+    'inlines',
+    'blog',
+    'hadrian.contrib.locations',
+    'gallery',
+    'sorl.thumbnail',
+    'django_extensions',
+    'bootstrap',
+
+
+    )
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -94,6 +125,11 @@ MIDDLEWARE_CLASSES = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -104,6 +140,16 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.handlers.SentryHandler',
+            'formatter': 'verbose'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
         }
     },
     'loggers': {
@@ -111,7 +157,11 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-    }
+            },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['sentry'],
+            'propagate': False,
+            },
+        }
 }
-

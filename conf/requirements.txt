@@ -1,9 +1,10 @@
-django==1.4
-south==0.7.5
-hadrian==1.1.2
+django==1.4.2
+south==0.7.6
+hadrian==1.1.5
 PIL
 sorl-thumbnail==11.12
-factory_boy
-coverage
-django-taggit
-BeautifulSoup
+factory_boy==1.2.0
+coverage==3.5.3
+django-taggit==0.9.3
+BeautifulSoup==3.2.1
+django-bootstrap-static==2.0.2
