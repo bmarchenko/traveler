@@ -36,42 +36,5 @@
                     {% endautoescape %}
                     
             </article>
-            {% load comments %}
-            {% if post.allow_comments %}
-            {% get_comment_list for post as comment_list %}
-            <h3>Comments</h3>
-            <div class="comments">
-                {% for comment in comment_list %}
-                <div class="comment odd well">
-                    <h5>{{ comment.user_name }}</h5>
-                    <p>{{ comment.comment }}</p>
-                </div>
-                {% endfor %}
-            </div>
-            
-            
-            {% get_comment_form for post as form %}
-             <form class="well" action="{% comment_form_target %}" method="post">
-            			    {% csrf_token %}
-            			    {{ form.content_type }}
-            			    {{ form.object_pk }}
-            
-            			    {{ form.timestamp }}
-            			    {{ form.security_hash }}
-            			    <label>Name:</label>
-            			    {{ form.name }}
-            			    <label>Email:</label>
-            			    {{ form.email }}
-            			    <label>URL:</label>
-            			    {{ form.url }}
-            			    <label>Comment</label>
-            			    <textarea name="comment" class="span11"></textarea>
-            			    <input type="hidden" value="{{ photo.get_absolute_url }}" name="next">
-            			    <div class="form-actions">
-            			        <input type="submit" name="submit" value="Post" class="btn btn-primary">
-            			        <input type="submit" name="preview" class="btn"	value="Preview">			  </form>
-            			    </div>
-            			</form>
-            			</div>
-            		{% endif %}
+
 {% endblock main_content %}

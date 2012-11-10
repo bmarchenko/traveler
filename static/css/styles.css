@@ -1,98 +1,68 @@
-/* Derek Stegelman */
 
-body
-{
+body {
+    background: none repeat scroll 0 0 #EFEFEF;
+
     margin-top: 20px;
-    font-family: "Merriweather";
-    background: #efefef;
 }
-
-/* Logo */
-
-.logo, .nav, h1, h2, h3, h4, h5, h6, .btn
-{
+.logo, .nav, h1, h2, h3, h4, h5, h6, .btn {
     font-family: "Yanone Kaffeesatz",Helvetica,sans-serif;
     font-weight: 400;
 }
-
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
-{
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     color: #333333;
 }
-
-a:hover
-{
+a:hover {
     text-decoration: none;
 }
-
-.tag-line
-{
+.tag-line {
     color: #666666;
 }
-
-/* Core */
-
-.round-big
-{
-    border-radius: 5px;
+.round-big {
+    border-radius: 5px 5px 5px 5px;
 }
-
-.polaroid
-{
+.polaroid {
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.6);
-    margin: 10px 12px 15px 12px;
+    margin: 10px 12px 15px;
     padding: 9px;
 }
-
-.polaroid p.caption
-{
+.polaroid p.caption {
+    font-family: 'Handlee',cursive;
     margin-bottom: 0;
     margin-top: 12px;
-    font-family: 'Handlee',cursive;
 }
-
-/* Navigation */
-
-.nav
-{
+.nav {
     font-size: 16px;
 }
-
-.nav .nav-header
-{
+.nav .nav-header {
     font-size: 16px;
     font-weight: 200;
 }
-/* Home Page */
-
-.main-attraction
-{
+.main-attraction {
     margin-bottom: 12px;
 }
-
-article.post
-{
-    padding-bottom: 20px;
+article.post {
+    border-bottom: 1px solid #CCCCCC;
     margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
 }
-
-article.post .date
-{
+article.post .date {
     font-size: 10px;
 }
-
-article.post .row
-{
+article.post .row {
     margin-top: 12px;
 }
-
-/* Map */
-
-div#map
-{
-    width: 450px;
+div#map {
     height: 300px;
+    width: 450px;
+}
+.footer {
+    border-top: 1px solid #E5E5E5;
+    margin-top: 45px;
+    padding: 35px 0 36px;
+}
+.footer p {
+    color: #555555;
+    margin-bottom: 0;
 }

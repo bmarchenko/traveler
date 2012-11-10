@@ -39,27 +39,3 @@ STATIC_ROOT = '' #os.path.join(SITE_ROOT, 'static')
 STATIC_URL = '/static/'
 SKIP_SOUTH_TESTS = True
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wsgi.application'
-
-ROOT_URLCONF = 'urls.local'
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'tastypie',
-    'south',
-    'core',
-    'issues',
-    'newsfeed',
-    'projects',
-    'profile',
-    #'api_docs',
-    'hadrian.contrib.gravatar',
-
-)
